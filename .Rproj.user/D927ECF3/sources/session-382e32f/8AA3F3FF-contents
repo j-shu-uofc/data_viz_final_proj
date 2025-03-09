@@ -1,0 +1,47 @@
+---
+title: "Final Project"
+description: |
+  Jerry Shu | March 2025
+site: distill::distill_website
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Learn more about creating websites with Distill at:
+# https://rstudio.github.io/distill/website.html
+
+```
+
+# 1. Introduction
+For many high school graduates in America, the next step after graduation is attending college. Pursuing a secondary education is widely seen as a way to further one's career prospects, which in turn brings financial opportunities. However, the outcome of a college education is not in fact equal.
+
+This project asks the question, "how do American undergraduate, four-year colleges provide financial opportunities to students? What kinds of inequalities are present in college"
+
+In particular, this project aims to consider the following questions:
+
+* Ivy League+ colleges?
+* Top 150 US News?
+* Has the 'bang for buck' trend shifted over time?
+
+# 2. Data and Methods 
+
+This project utilizes the [College Scorecard Dataset](https://collegescorecard.ed.gov/data) provided by the U.S. Department of Education. Data is provided at the institution and field-of-study level for each year from 1996-97 to 2022-23. The dataset was filtered for four-year colleges only; this was to facilitate equitable analysis across colleges. The webpage that contains this report was created using [Distill in RMarkdown](https://rstudio.github.io/distill/), and the visualizations were rendered using Altair.
+
+For determining the return on investment (ROI) on colleges, I attempted to compare median costs of attending with the median income of employed graduates. 
+
+# 3. Results and Analysis
+
+First, I wanted to explore broadly if there were obvious differences in between the types of school ownership: public, private non-profit, and private for-profit.
+
+<div class="figure">
+<!-- Begin inline SVG -->
+  <img src="visualization.svg" alt="ROI by ownership" style="width:100%; max-width:600px;">
+  <p class="caption">Figure 1: ROI by school ownership</p>
+<!-- End inline SVG -->
+</div>
+
+# 4. Discussion and Conclusion
+
+# 5. References
+

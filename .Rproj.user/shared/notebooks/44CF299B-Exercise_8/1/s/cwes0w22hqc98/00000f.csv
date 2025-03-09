@@ -1,0 +1,7 @@
+"0","m_norm = brm("
+"0","  bf(""charges ~ 1""), # use constant intercept"
+"0","  family = ""normal"","
+"0","  data = model_df, "
+"0","  iter = 2000, warmup = 1000, chains = 2,"
+"0","  file = ""models/m_norm.rds"""
+"0",")"

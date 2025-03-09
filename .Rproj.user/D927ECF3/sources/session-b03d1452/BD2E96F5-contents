@@ -1,0 +1,11 @@
+/* Set the overall page margins */
+body {
+  margin: 2rem;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+/* Adjust container margins if needed */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}

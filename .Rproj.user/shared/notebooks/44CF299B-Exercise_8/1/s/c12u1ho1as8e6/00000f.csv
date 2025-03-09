@@ -1,0 +1,8 @@
+"0","model_df |>"
+"0","  select(charges, c_bmi, smoker) |> "
+"0","  add_predicted_draws(m_smoker_hlogn, ndraws = 200) |>"
+"0","  ggplot(aes(x = smoker, y = .prediction)) + "
+"0","  stat_lineribbon(.width = c(.50, .80, .95)) + "
+"0","  scale_fill_brewer() +"
+"0","  geom_point(aes(y = charges), alpha = 0.4, data = model_df) + "
+"0","  theme_bw()"

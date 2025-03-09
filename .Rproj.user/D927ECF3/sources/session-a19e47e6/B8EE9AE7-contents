@@ -1,0 +1,218 @@
+---
+title: "Inequalities in College Financial Outcomes"
+subtitle: "Data Visualization Final Project"
+description: |
+  Jerry Shu | March 2025
+site: distill::distill_website
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# 1. Introduction
+To many in America, obtaining a secondary school diploma is viewed as a way to improve one's career prospects. In fact, many believe that higher education provides an opportunity to increase one's earning potential. However, the outcome of a college education cannot be described as equal across all higher education institutions. [While there exists substantial evidence that a college education can improve one's earnings overall](https://www.nyu.edu/about/news-publications/news/2024/march/study-of-5-8-million-americans-finds-that-a-college-degree-yield.html), there also exist deep inequalities in the ways colleges improve the financial outcomes for those who attend. 
+
+This project aims to visualize some of these inequalities. The motivation lies in the following two research questions:
+
+1. How do American four-year undergraduate colleges provide financial opportunities to their students?
+2. With regards to such opportunities, what disparities exist among different institutions and academic majors? 
+
+The goal of this project is to use the College Scorecard dataset to visualize answers to the questions above. By aggregating via insitutional characteristics and fields of study, we can 
+observe some of the inequalities that exist within the college system.
+
+# 2. Data and Methods 
+
+## Datasets
+This project utilizes the following datasets:
+
+1. [College Scorecard Dataset](https://collegescorecard.ed.gov/data): This dataset is provided by the U.S. Department of Education, containing information on all degree-granting higher education institutions in the U.S. Data is available at the institution and field-of-study level for each year from 1996-97 to 2022-23 across a variety of factors, including costs, completion, financial aid, debt, repayment, and earnings. The dataset was filtered for four-year colleges only; this was to facilitate equitable analysis across colleges. As such, this analysis only applies to undergraduate programs. Unless otherwise noted, the data for this project was sourced from the 2022-23 school year, which was the most recent cohort of data available at the time of my research. Additionally, the College Scorecard data reflects students who received federal financial aid. Consequently, the earnings data may not fully represent students who did not utilize federal aid programs. 
+2. [CIP Codes Dataset](https://nces.ed.gov/ipeds/cipcode/resources.aspx?y=55): This dataset from the National Center for Education Statistics contains the CIP codes and their corresponding fields of study. 'CIP' stands for "Classification of Instructional Programs." 
+3. [US News Top 150 Rankings](https://andyreiter.com/datasets/): This dataset is provided by Professor Andrew G. Reiter at Mount Holyoke College, and it contains historical data on the top 150 university rankings from US News and World Report.
+
+## Methods
+* **Webpage**: The webpage that contains this report was created using [Distill in RMarkdown](https://rstudio.github.io/distill/).
+* **Visualizations**: The visualizations in this report were rendered using Altair. Additional annotations were added via Figma.
+* **Analysis**: The analysis for this report was done in a literate programming style in an iPython notebook.
+
+# 3. Results and Analysis
+
+## ROI by Type of Institutional Funding
+
+First, I wanted to explore broadly if there were obvious differences in ROI between the types of school ownership: public, private non-profit, and private for-profit. The x-axis measures the average cost of attendance, while the y-axis measures the median earnings for graduates 10 years after enrolling. Due to data limitations, the only available years for these data were 2011, 2012, 2013, 2014, and 2020. Plotting over the years, a consistent pattern emerges: it appears that private, non-profit institutions have on average higher costs of attendance and are grouped further to the right on the chart, compared to public institutions. We expect to see this, as [public institutions generally have lower costs due to government funding](https://soeonline.american.edu/blog/private-vs-public-institutions/#:~:text=Due%20to%20government%20funding%2C%20public,often%20have%20higher%20tuition%20costs.). Furthermore, there is a slight positive correlation between earnings and cost overall.
+
+*The following visualization is interactive. Click on the `Year` tab to switch between different years.*
+
+<!-- Interactive ROI Scatterplot by Year -->
+<div class="figure">
+  <iframe src="figures/interactive_scatter_roi_years.html" width="100%" height="420" style="border:none;"></iframe>
+  <p class="caption">Figure: ROI by school ownership over the years</p>
+</div>
+
+Grouping by institution type may be too broad for deep analysis, however, as the definition for what constitutes a private non-profit institution encompasses a wide range of institution types. For instance, private non-profit institutions could be any of the following:
+
+* **Large research universities** with a wide range of academic majors and large endowments
+* **Religiously affiliated institutions** with a narrow selection of majors relating to theology
+* **Specialized or niche colleges** such as music conservatories
+
+It follows that more specific comparisons of the data can facilitate deeper analysis.
+
+## ROI by School Ranking
+
+According to many accounts, a school’s perceived 'prestige' serves as a significant factor in attracting students who aim to maximize their future earnings potential. The following visualization returns to the scatterplot exploring cost of attendance versus median earnings 10 years post-enrollment, but asks a fundamentally different question: does being in the top 150 of schools ranked by the popular publication, US News & World Report, give students an advantage in ROI over other schools?
+
+<!--- Top 150 vs. Others --->
+<div class="figure">
+  <iframe src="figures/top_150_vs_others_roi.svg" width="100%" height="400" style="border:none;"></iframe>
+  <p class="caption">Figure: ROI for Top 150 vs. all other schools</p>
+</div>
+
+Inspecting the scatterplot, we find that the median earnings for the top 150 are on average towards the higher end of the scale; they appear to occupy the top right parts of the two clusters mentioned previously, those being public and private non-profit institutions.
+
+## ROI by Clustering Analysis
+
+The analysis above demonstrates significant differences in ROI with regards to the type of institution and its prestige. However, there are a multitude of other factors in the school and student profile that may influence a school's position on the ROI scatterplot. To investigate further, I used K-means clustering as a proxy for identifying the most influential factors. This can assist in determing how schools can be categorized based on their ROI. I used the following variables from the College Scorecard dataset:
+
+* Share of undergraduate, degree-/certificate-seeking students who are part-time
+* Percentage first-generation students
+* Size of undergraduate student body
+* Median family income
+* Percent of student body that is white
+* Admission rate
+* Median debt of graduates
+* Institution type (e.g., private non-profit)
+* Whether the school is ranked in the top 150 in US News and World Report
+* [Carnegie Classification](https://carnegieclassifications.acenet.edu) (basic classification of schools)
+* Whether the school is religiously affiliated
+
+The choice of variables was partly exploratory and [partly as a representation of existing literature that points to wealth and racial disparities](https://www.ihep.org/press/how-wealth-not-just-income-shapes-college-access-and-success/). For instance, median family income and the percentage of white students highlight these disparities, while other variables such as religious affiliation were chosen to provide a more nuanced perspective beyond the previous public/private distinction.
+
+*The following visualization is interactive. Click on the legend to filter for different clusters. Holding `shift` allows for multi-selection. Click anywhere on the chart to reset. Hovering over any data point brings up its tooltip.*
+
+<!-- Interactive ROI Scatterplot by Clustering -->
+<div class="figure">
+  <iframe src="figures/interactive_scatter_roi_clustering.html" width="100%" height="600" style="border:none;"></iframe>
+  <p class="caption">Figure: ROI by Clustering</p>
+</div>
+
+The following are my observations from the clustering analysis.
+
+### 1. Religious Affiliation and Institution Type
+
+After clustering on a multitude of factors, two particular factors are markedly polarized in the data: *institution type* and *religious affiliation*. Within each cluster, institutions  are either completely private non-profit or not at all. It also follows that schools that are religiously affiliated are largely private; no cluster has a higher percentage of religious affiliation than private institution type. However, this relationship is not one-to-one, since not all private institutions are religiously affiliated, suggesting that there is a distinct separation between religiously affiliated and non-religiously affiliated private non-profit schools in the dataset.
+
+The chart below illustrates the percentage of schools in each cluster that are religiously affiliated and those classified as private, non-profit. 
+
+<!-- Religious, Private -->
+<div class="figure">
+  <iframe src="figures/cluster_private_religious.html" width="100%" height="400" style="border:none;"></iframe>
+  <p class="caption">Figure: Religious Affiliation % and Private Non-Profit % </p>
+</div>
+
+Returning to the cluster from before, we highlight Clusters 3, 4, 6, and 7, which have almost 100% private non-profit institutions. Clusters 3 and 4 are almost completely religiously affiliated, while 6 and 7 are the opposite.
+
+<!-- 3,4 vs 6,7 -->
+<div class="figure">
+  <iframe src="figures/cluster_privs.gif" width="100%" height="600" style="border:none;"></iframe>
+  <p class="caption">Figure: Clusters 3 & 4 vs. Clusters 6 & 7 </p>
+</div>
+
+While the points in Clusters 3 and 4 are more densely grouped together, the points in Clusters 6 and 7 are rather dispersed; this suggests more homogeneous ROI over the religiously affiliated private non-profit institutions.
+
+### 2. Differences between Religious, Private Institutions
+
+Clusters 3 and 4 are both predominantly religiously affiliated and private, and lie closely to each other on the scatterplot:
+
+<!-- Cluster 3 vs Cluster 4 -->
+<div class="figure">
+  <iframe src="figures/cluster_3_4.gif" width="100%" height="600" style="border:none;"></iframe>
+  <p class="caption">Figure: Cluster 3 vs. 4</p>
+</div>
+
+This raised an important question: what differentiates these two sizable clusters?
+
+Cluster 3 has higher average costs and earnings compared to Cluster 4, and there is a large difference in median family income. This difference suggests that schools in Cluster 3 may attract students from wealthier backgrounds on average, potentially influencing their career trajectory in terms of future earnings. At this stage of analysis, a causal relationship cannot be determined, but nonetheless this distinction is worth observing.
+
+<!-- Cost, Earnings, Family Income -->
+<div class="figure">
+  <iframe src="figures/cluster_avgs_money.html" width="100%" height="400" style="border:none;"></iframe>
+  <p class="caption">Figure: Cost, Earnings, and Family Income % </p>
+</div>
+
+### 3. Overall Cluster Observations
+
+The following represents my interpretation of the clustering phenomena observed in the scatterplot:
+
+Cluster | Classification
+- | -------------
+0  | The majority of these points lie in the lower left quadrant of the plot, but there are also several points to the top right. It is rather unclear what this cluster represents.
+1  | **Predominantly white, low-cost state schools**: These schools are largely public state universities with relatively low costs of attendance and low-to-moderate earnings. The earnings are rather clustered around a range of 40 to 60 thousand, suggesting a relatively homoegenous mix of ROI.
+2 | **More racially diverse, low-cost state schools**: Similar to Cluster 1, the schools in this cluster are predominantly public and low-cost. However, the average median family income for this cluster is much lower, and the average percentage of white students is much lower, at 19% versus 64%. The earnings are far more scattered than with Cluster 1, indicating a wider range of potential outcomes.
+3 | **Religiously-affiliated schools with wealthier students**: These institutions are almost all religiously-affiliated, with a background of wealthier students compared to Cluster 4. Among these schools, the cost of attendance varies widely, but there seems to be generally a weak positive correlation between their cost and future earnings.
+4 | **Religiously-affiliated schools with less wealthy students**: These institutions are almost all religiously-affiliated, with a background of less wealthy students compared to Cluster 3. Among these schools, the cost of attendance varies widely, but there seems to be generally a weak positive correlation between their cost and future earnings.
+5 | **Large state schools**: These institutions are predominantly flagship state universities with large student bodies. Compared to the other public institutions in Clusters 1 and 2, these universities exhibit higher earnings while remaining in roughly the same range of costs.
+6 | **Smaller private schools**: These institutions are almost all private and have small student bodies. There is a wide range of costs and earnings, as this cluster contains many liberal arts colleges but also trade schools as well.
+7 | **'Prestigious' schools**: These institutions are mostly within the top 150 in the US News and World Report rankings. They have higher costs of attendance and are largely private, but also have higher earnings than the other clusters. 
+8 | **Predominantly white schools with wealthier students**: These institutions are similar to Cluster 1 in that they are predominantly white and public. However, the average median family income for these schools is ~50% higher. Accordingly, the average earnings for these schools is higher than those in Cluster 1.
+9 | Again, as with Cluster 0, these points have a rather disparate set of factors that make interpretation harder. 
+
+## Earnings Trajectory
+The analysis above dealt with return on investment at a static point in time: 10 years post-enrollment. The following section will analyze earnings trajectories, looking at how earnings change over time for college graduates.
+
+## Earnings Trajectory Methodology
+
+The College Scorecard dataset also offers median earnings data for multiple cohorts across time. Every institution—and even each major—provides earnings data measured at specific intervals after graduation. These numbers can be used to trace student earnings trajectories.
+
+## Earnings Trajectory by School
+
+First, I'll assess whether a school’s prestige influences students’ average earnings trajectories. One measure of prestige is the previously mentioned top 150 schools, while another, often considered more exclusive, is the Ivy League. Inspecting the chart, we find that the earnings trajectories for the Ivy League and Top 150 schools are consistently above the trajectory for all other schools.
+
+<!--- Earnings Trajectory by Prestige --->
+<div class="figure">
+  <iframe src="figures/earnings_trajectory_by_prestige.svg" width="100%" height=270 style="border:none;"></iframe>
+  <p class="caption">Figure: Earnings Trajectory by Prestige</p>
+</div>
+
+## Earnings Trajectory by Field of Study
+
+Another key aspect to examine is the earnings trajectory by field of study; within a single school, earnings potential can differ widely. The visualization below presents the average median earnings over time across all institutions for each field of study. The chart is interactive, and users can explore where the earnings trajectories for each majors lie on the chart.
+
+*The following visualization is interactive. Click on the legend to filter for different majors. Holding `shift` allows for multi-selection. Click anywhere on the chart to reset.*
+
+<!--- Earnings Trajectory by Field of Study --->
+<div class="figure">
+  <iframe src="figures/interactive_major_earnings_time.html" width="100%" height="740" style="border:none;"></iframe>
+  <p class="caption">Figure: Earnings Trajectory by Field of Study</p>
+</div>
+
+Fields such as Engineering, Construction Trades, Computer Sciences, and Mathematics and Statistics occupy the higher end of the earnings spectrum, while fields such as Library Science, Theology and Religious Vocations, and Visual and Performing Arts fall on the lower end. [As expected, STEM fields dominate the upper tier](https://www.insidehighered.com/news/students/careers/2023/05/04/measuring-outcomes-income). This trend likely reflects the strong market demand for entry-level STEM jobs, particularly in the engineering and computer science fields. However, the available earnings data only covers up to five years, which limits overall applicability. If longer-term data were available in the dataset, it would be worth examining whether earnings in certain fields eventually converge with higher-paying disciplines.
+
+<!--- Earnings Trajectory by Field of Study --->
+<div class="figure">
+  <iframe src="figures/earnings_trajectory_by_field_of_study.svg" width="100%" height="715" style="border:none;"></iframe>
+  <p class="caption">Figure: Earnings Trajectory by Field of Study</p>
+</div>
+
+# 4. Discussion and Conclusion
+
+The visualizations reveal that ROI varies significantly by institution type, with private non-profit institutions generally higher in cost and earnings than public ones. The analysis also shows that perceived prestige plays a crucial role in inequal outcomes. The clustering analysis highlighted further distinctions across institutions, including school size, religious affiliation, and the racial makeup of the student body. This polarization suggests that there are a variety of factors that impact student outcomes. Across the different fields of study, earnings trajectories vary, but again the type of institution matters greatly, with higher 'prestige' institutions exhibiting greater earnings throughout the first seven years after graduation. These findings indicate that students' financial outcomes are closely tied to key institutional characteristics, especially institution type, religious affiliation, racial makeup, and school size. 
+
+While earnings trajectories may vary early on in one's career, some professions -- such as medical professionals -- require additional years of schooling or experience to achieve higher earnings. Furthermore, because the study above was correlative, we cannot definitively conclude that institutional characteristics *cause* the observed differences in ROI; we can only say that the two are associated.
+
+Future analysis could explore a longer earnings horizon with the use of a different dataset. Employing a regression-based analysis could also give further insights as to which factors quantitatively had the largest impact on ROI.
+
+# 5. References
+
+The sources cited throughout have been linked at the point of citation. They are listed here again:
+
+* ["While there exists substantial evidence that a college education can improve one's earnings overall"](https://www.nyu.edu/about/news-publications/news/2024/march/study-of-5-8-million-americans-finds-that-a-college-degree-yield.html)]
+* [College Scorecard Dataset](https://collegescorecard.ed.gov/data)
+* [CIP Codes Dataset](https://nces.ed.gov/ipeds/cipcode/resources.aspx?y=55)
+* [US News Top 150 Rankings](https://andyreiter.com/datasets/)
+* [Distill in RMarkdown](https://rstudio.github.io/distill/)
+* ["public institutions generally have lower costs due to government funding"](https://soeonline.american.edu/blog/private-vs-public-institutions/#:~:text=Due%20to%20government%20funding%2C%20public,often%20have%20higher%20tuition%20costs.)
+* [Carnegie Classification](https://carnegieclassifications.acenet.edu)
+* ["partly as a representation of existing literature that points to wealth and racial disparities"](https://www.ihep.org/press/how-wealth-not-just-income-shapes-college-access-and-success/)
+* ["As expected, STEM fields dominate the upper tier"](https://www.insidehighered.com/news/students/careers/2023/05/04/measuring-outcomes-income)
+
+

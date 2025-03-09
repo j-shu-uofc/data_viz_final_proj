@@ -1,0 +1,8 @@
+"0","model_df |>"
+"0","  select(charges, c_bmi) |>"
+"0","  mutate(y = 0) |>"
+"0","  add_predicted_draws(m_bmi_hlogn, ndraws = 200) |>"
+"0","  ggplot(aes(x = .prediction, y = y)) + "
+"0","  stat_slab(justification = -0.02, fill = ""steelblue"") + "
+"0","  stat_dots(aes(x=charges), quantiles = 50, side = ""bottom"", scale = 0.75, data = model_df) + "
+"0","  theme_bw()"

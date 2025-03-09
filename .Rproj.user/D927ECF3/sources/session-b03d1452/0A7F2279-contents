@@ -1,0 +1,59 @@
+---
+title: "Final Project"
+description: |
+  Jerry Shu | March 2025
+site: distill::distill_website
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Learn more about creating websites with Distill at:
+# https://rstudio.github.io/distill/website.html
+
+```
+
+# 1. Introduction
+For many high school graduates in America, the next step after graduation is attending college. Pursuing a secondary education is widely seen as a way to further one's career prospects, which in turn brings financial opportunities. However, the outcome of a college education is not in fact equal.
+
+This project asks the question, "how do American undergraduate, four-year colleges provide financial opportunities to students? What kinds of inequalities are present in college"
+
+In particular, this project aims to consider the following questions:
+
+* Ivy League+ colleges?
+* Top 150 US News?
+* Has the 'bang for buck' trend shifted over time?
+
+# 2. Data and Methods 
+
+This project utilizes the [College Scorecard Dataset](https://collegescorecard.ed.gov/data) provided by the U.S. Department of Education. Data is provided at the institution and field-of-study level for each year from 1996-97 to 2022-23. The dataset was filtered for four-year colleges only; this was to facilitate equitable analysis across colleges. The webpage that contains this report was created using [Distill in RMarkdown](https://rstudio.github.io/distill/), and the visualizations were rendered using Altair.
+
+Considerations:
+
+* For determining the return on investment (ROI) on colleges, I attempted to compare median costs of attending with the median income of employed graduates. 
+* Worth emphasizing (at some point) that the data displayed wrt earnings and costs are only for those on federal aid
+
+# 3. Results and Analysis
+
+First, I wanted to explore broadly if there were obvious differences in ROI between the types of school ownership: public, private non-profit, and private for-profit. The x-axis measures the average cost of attendance, while the y-axis measures the median earnings for graduates 10 years after enrolling. Due to data limitations, the only available years for these data were 2011, 2012, 2013, 2014, and 2020. Plotting over the years, a consistent pattern emerges: it appears that private, non-profit institutions have on average higher costs of attendance and are grouped further to the right on the chart, compared to public institutions. We expect to see this, as [public institutions generally have lower costs due to government funding](https://soeonline.american.edu/blog/private-vs-public-institutions/#:~:text=Due%20to%20government%20funding%2C%20public,often%20have%20higher%20tuition%20costs.). Furthermore, we see a slight upward trend in earnings as cost increases, but the correlation appears weak. 
+
+<!-- Interactive slider -->
+<div class="figure">
+  <iframe src="interactive_scatter_roi_years.html" width="100%" height="400" style="border:none;"></iframe>
+  <p class="caption">Figure: ROI by school ownership over the years.</p>
+</div>
+
+Grouping by institution type may be too broad for deep analysis, however, as the definition for what constitutes a private non-profit institution encompasses a broad range of institution types. For instance, private non-profit institutions could be any of the following:
+
+* **Large research universities** with a wide range of academic majors and large endowments
+* **Religiously affiliated institutions** with a narrow selection of majors relating to theology
+* **Specialized or niche colleges** such as music conservatories
+
+It follows that more specific comparisons of the data can facilitate more valuable conclusions.
+
+
+
+# 4. Discussion and Conclusion
+
+# 5. References
+
