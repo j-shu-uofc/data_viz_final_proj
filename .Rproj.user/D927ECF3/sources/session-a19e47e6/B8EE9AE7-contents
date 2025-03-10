@@ -100,7 +100,7 @@ I chose the top 30 variables from the regression analysis for the clustering alg
   <p class="caption">Figure: ROI by Clustering</p>
 </div>
 
-### 3. Overall Cluster Observations
+### Overall Cluster Observations
 
 The following represents my interpretation of the clustering phenomena observed in the scatterplot. For the purposes of this analysis, I produced a series of visualizations that show each variable in the clustering algorithm and its distribution. These visualizations can be found in the computational notebook, as fitting all of them in this webpage proved difficult (I was unable to save to HTML, which was needed to embed visualizations.).
 
@@ -119,7 +119,7 @@ Overall, there were several interesting observations:
 
 * The cluster with the highest average engineering concentration also had the highest ROI; the cluster with the highest average visual arts concentration also had the lowest ROI. 
 * Some clusters are highly defined by geography, such as Cluster 6, which suggests that regional spatial factors may play a role in ROI.
-* The analysis shows a clear divide with private for-profit institutions -- they tend to serve part-time students above the age of 25, with an ROI that is towards the middle of the clusters.
+* The analysis shows a clear divide between private for-profit institutions and all other schools -- they tend to serve part-time students above the age of 25, with an ROI that is towards the middle of the clusters.
 
 ## Earnings Trajectory
 The analysis above dealt with return on investment at a static point in time: 10 years post-enrollment. The following section will analyze earnings trajectories, looking at how earnings change over time for college graduates.
@@ -150,7 +150,7 @@ Another key aspect to examine is the earnings trajectory by field of study; with
   <p class="caption">Figure: Earnings Trajectory by Field of Study</p>
 </div>
 
-Fields such as Engineering, Construction Trades, Computer Sciences, and Mathematics and Statistics occupy the higher end of the earnings spectrum, while fields such as Library Science, Theology and Religious Vocations, and Visual and Performing Arts fall on the lower end. [As expected, STEM fields dominate the upper tier](https://www.insidehighered.com/news/students/careers/2023/05/04/measuring-outcomes-income). This trend likely reflects the strong market demand for entry-level STEM jobs, particularly in the engineering and computer science fields. Additionally, this observation aligns with the previous analysis on ROI, as higher ROI was associated with high concentration in Engineering, while lower ROI was associated with a high concentration in the Visual Arts.
+Fields such as Engineering, Construction Trades, Computer Sciences, and Mathematics and Statistics occupy the higher end of the earnings spectrum, while fields such as Library Science, Theology and Religious Vocations, and Visual and Performing Arts fall on the lower end. [As expected, STEM fields dominate the upper tier](https://www.insidehighered.com/news/students/careers/2023/05/04/measuring-outcomes-income). This trend likely reflects [the strong market demand for entry-level STEM jobs, particularly in the engineering and computer science fields](http://blog.dol.gov/2022/11/04/stem-day-explore-growing-careers). Additionally, this observation aligns with the previous analysis on ROI, as higher ROI was associated with high concentration in Engineering, while lower ROI was associated with a high concentration in the Visual Arts.
 
 However, the available earnings data only covers up to five years, which limits overall applicability. If longer-term data were available in the dataset, it would be worth examining whether earnings in certain fields eventually converge with higher-paying disciplines.
 
@@ -180,5 +180,6 @@ The sources cited throughout have been linked at the point of citation. They are
 * ["public institutions generally have lower costs due to government funding"](https://soeonline.american.edu/blog/private-vs-public-institutions/#:~:text=Due%20to%20government%20funding%2C%20public,often%20have%20higher%20tuition%20costs.)
 * [Carnegie Classification](https://carnegieclassifications.acenet.edu)
 * ["As expected, STEM fields dominate the upper tier"](https://www.insidehighered.com/news/students/careers/2023/05/04/measuring-outcomes-income)
+* ["the strong market demand for entry-level STEM jobs, particularly in the engineering and computer science fields"](http://blog.dol.gov/2022/11/04/stem-day-explore-growing-careers)
 
 
