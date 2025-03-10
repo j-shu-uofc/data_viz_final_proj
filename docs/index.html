@@ -2567,6 +2567,7 @@ observe some of the inequalities that exist within the college system.</p>
 <li><strong>Webpage</strong>: The webpage that contains this report was created using <a href="https://rstudio.github.io/distill/">Distill in RMarkdown</a>.</li>
 <li><strong>Visualizations</strong>: The visualizations in this report were rendered using Altair. Additional annotations were added via Figma.</li>
 <li><strong>Analysis</strong>: The analysis for this report was done in a literate programming style in an iPython notebook.</li>
+<li><strong>Regression</strong>: I used an <code>XGBoost</code> regression model for feature selection and a K-Means clustering algorithm for clustering. See the notebook for an in-depth justification of the parameters used.</li>
 </ul>
 <h1 id="results-and-analysis">3. Results and Analysis</h1>
 <h2 id="roi-by-type-of-institutional-funding">ROI by Type of Institutional Funding</h2>
@@ -2597,21 +2598,25 @@ Figure: ROI for Top 150 vs. all other schools
 </div>
 <p>Inspecting the scatterplot, we find that the median earnings for the top 150 are on average towards the higher end of the scale; they appear to occupy the top right parts of the two clusters mentioned previously, those being public and private non-profit institutions.</p>
 <h2 id="roi-by-clustering-analysis">ROI by Clustering Analysis</h2>
-<p>The analysis above demonstrates significant differences in ROI with regards to the type of institution and its prestige. However, there are a multitude of other factors in the school and student profile that may influence a school’s position on the ROI scatterplot. To investigate further, I used K-means clustering as a proxy for identifying the most influential factors. This can assist in determing how schools can be categorized based on their ROI. I used the following variables from the College Scorecard dataset:</p>
+<p>The analysis above demonstrates significant differences in ROI with regards to the type of institution and its prestige. However, there are a multitude of other factors in the school and student profile that may influence a school’s position on the ROI scatterplot. To investigate further, I used a regression model to determine the most important features that determine ROI (defined as median earnings / average cost), and then clustered with K-means to visualize the groups between these schools. This can assist in determing how schools can be categorized based on their ROI. As a result of the regression analysis, I used the following variables from the College Scorecard dataset for the clustering algorithm:</p>
 <ul>
+<li>Percent of all undergraduate students receiving a federal student loan</li>
+<li>Percentage of degrees awarded in Transportation And Materials Moving, Visual And Performing Arts, Social Sciences, Parks, Recreation, Leisure, And Fitness Studies, Engineering</li>
 <li>Share of undergraduate, degree-/certificate-seeking students who are part-time</li>
-<li>Percentage first-generation students</li>
-<li>Size of undergraduate student body</li>
+<li>Percent of students whose parents’ highest educational level is high school</li>
+<li>Share of dependent students</li>
+<li>Share of students who received a federal loan while in school</li>
 <li>Median family income</li>
-<li>Percent of student body that is white</li>
-<li>Admission rate</li>
-<li>Median debt of graduates</li>
+<li>Percentage of undergraduates aged 25 and above</li>
+<li>First-time, full-time student retention rate at four-year institutions</li>
+<li>Percent of student body that is Hispanic</li>
+<li>Percent of student body that is female-identifying</li>
+<li>State Postcode</li>
+<li>Highest degree offered</li>
 <li>Institution type (e.g., private non-profit)</li>
-<li>Whether the school is ranked in the top 150 in US News and World Report</li>
 <li><a href="https://carnegieclassifications.acenet.edu">Carnegie Classification</a> (basic classification of schools)</li>
-<li>Whether the school is religiously affiliated</li>
 </ul>
-<p>The choice of variables was partly exploratory and <a href="https://www.ihep.org/press/how-wealth-not-just-income-shapes-college-access-and-success/">partly as a representation of existing literature that points to wealth and racial disparities</a>. For instance, median family income and the percentage of white students highlight these disparities, while other variables such as religious affiliation were chosen to provide a more nuanced perspective beyond the previous public/private distinction.</p>
+<p>I chose the top 30 variables from the regression analysis for the clustering algorithm, and chose to use 8 clusters, as I found that was the optimal amount of clusters (see notebook for details). The following visualization represents those clusters in the ROI scaterplot:</p>
 <p><em>The following visualization is interactive. Click on the legend to filter for different clusters. Holding <code>shift</code> allows for multi-selection. Click anywhere on the chart to reset. Hovering over any data point brings up its tooltip.</em></p>
 <!-- Interactive ROI Scatterplot by Clustering -->
 <div class="figure">
@@ -2620,100 +2625,70 @@ Figure: ROI for Top 150 vs. all other schools
 Figure: ROI by Clustering
 </p>
 </div>
-<p>The following are my observations from the clustering analysis.</p>
-<h3 id="religious-affiliation-and-institution-type">1. Religious Affiliation and Institution Type</h3>
-<p>After clustering on a multitude of factors, two particular factors are markedly polarized in the data: <em>institution type</em> and <em>religious affiliation</em>. Within each cluster, institutions are either completely private non-profit or not at all. It also follows that schools that are religiously affiliated are largely private; no cluster has a higher percentage of religious affiliation than private institution type. However, this relationship is not one-to-one, since not all private institutions are religiously affiliated, suggesting that there is a distinct separation between religiously affiliated and non-religiously affiliated private non-profit schools in the dataset.</p>
-<p>The chart below illustrates the percentage of schools in each cluster that are religiously affiliated and those classified as private, non-profit.</p>
-<!-- Religious, Private -->
-<div class="figure">
-<iframe src="figures/cluster_private_religious.html" width="100%" height="400" style="border:none;"></iframe>
-<p class="caption">
-Figure: Religious Affiliation % and Private Non-Profit %
-</p>
-</div>
-<p>Returning to the cluster from before, we highlight Clusters 3, 4, 6, and 7, which have almost 100% private non-profit institutions. Clusters 3 and 4 are almost completely religiously affiliated, while 6 and 7 are the opposite.</p>
-<!-- 3,4 vs 6,7 -->
-<div class="figure">
-<iframe src="figures/cluster_privs.gif" width="100%" height="600" style="border:none;"></iframe>
-<p class="caption">
-Figure: Clusters 3 &amp; 4 vs. Clusters 6 &amp; 7
-</p>
-</div>
-<p>While the points in Clusters 3 and 4 are more densely grouped together, the points in Clusters 6 and 7 are rather dispersed; this suggests more homogeneous ROI over the religiously affiliated private non-profit institutions.</p>
-<h3 id="differences-between-religious-private-institutions">2. Differences between Religious, Private Institutions</h3>
-<p>Clusters 3 and 4 are both predominantly religiously affiliated and private, and lie closely to each other on the scatterplot:</p>
-<!-- Cluster 3 vs Cluster 4 -->
-<div class="figure">
-<iframe src="figures/cluster_3_4.gif" width="100%" height="600" style="border:none;"></iframe>
-<p class="caption">
-Figure: Cluster 3 vs. 4
-</p>
-</div>
-<p>This raised an important question: what differentiates these two sizable clusters?</p>
-<p>Cluster 3 has higher average costs and earnings compared to Cluster 4, and there is a large difference in median family income. This difference suggests that schools in Cluster 3 may attract students from wealthier backgrounds on average, potentially influencing their career trajectory in terms of future earnings. At this stage of analysis, a causal relationship cannot be determined, but nonetheless this distinction is worth observing.</p>
-<!-- Cost, Earnings, Family Income -->
-<div class="figure">
-<iframe src="figures/cluster_avgs_money.html" width="100%" height="400" style="border:none;"></iframe>
-<p class="caption">
-Figure: Cost, Earnings, and Family Income %
-</p>
-</div>
 <h3 id="overall-cluster-observations">3. Overall Cluster Observations</h3>
-<p>The following represents my interpretation of the clustering phenomena observed in the scatterplot:</p>
+<p>The following represents my interpretation of the clustering phenomena observed in the scatterplot. For the purposes of this analysis, I produced a series of visualizations that show each variable in the clustering algorithm and its distribution. These visualizations can be found in the computational notebook, as fitting all of them in this webpage proved difficult (I was unable to save to HTML, which was needed to embed visualizations.).</p>
 <table>
 <colgroup>
-<col style="width: 7%" />
-<col style="width: 92%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 86%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th>Cluster</th>
+<th>ROI (Earnings/Cost)</th>
 <th>Classification</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>0</td>
-<td>The majority of these points lie in the lower left quadrant of the plot, but there are also several points to the top right. It is rather unclear what this cluster represents.</td>
+<td>1.58</td>
+<td><strong>North Carolina schools:</strong> The points in this cluster seem rather dispersed, especially with Duke University and Southern Methodist University as extreme outliers. Examining the distributions, it appears that these schools have more than twice the average percentage of degrees awarded in Parks, Recreation, Leisure, And Fitness Studies than other schools, and almost all of these schools are located in North Carolina. This cluster remains hard to interpret.</td>
 </tr>
 <tr class="even">
 <td>1</td>
-<td><strong>Predominantly white, low-cost state schools</strong>: These schools are largely public state universities with relatively low costs of attendance and low-to-moderate earnings. The earnings are rather clustered around a range of 40 to 60 thousand, suggesting a relatively homoegenous mix of ROI.</td>
+<td>1.92</td>
+<td><strong>Colorado schools:</strong> The schools in this cluster are also rather dispersed, and contain a mix of public and private non-profit schools. However, a defining characteristic is that this cluster has a high average percentage of Hispanic students, and a majority of these schools are in Colorado.</td>
 </tr>
 <tr class="odd">
 <td>2</td>
-<td><strong>More racially diverse, low-cost state schools</strong>: Similar to Cluster 1, the schools in this cluster are predominantly public and low-cost. However, the average median family income for this cluster is much lower, and the average percentage of white students is much lower, at 19% versus 64%. The earnings are far more scattered than with Cluster 1, indicating a wider range of potential outcomes.</td>
+<td>1.43</td>
+<td><strong>High earnings, wealthy family background:</strong> The schools in this cluster contain a mixture of high earnings public and private non-profit schools, with a large range in cost of attendance. Institutions in this cluster have an average median family income far higher than other clusters, and there is also the highest average concentration of social sciences majors in this cluster.</td>
 </tr>
 <tr class="even">
 <td>3</td>
-<td><strong>Religiously-affiliated schools with wealthier students</strong>: These institutions are almost all religiously-affiliated, with a background of wealthier students compared to Cluster 4. Among these schools, the cost of attendance varies widely, but there seems to be generally a weak positive correlation between their cost and future earnings.</td>
+<td>2.43</td>
+<td><strong>Public schools with a focus on engineering and high ROI:</strong> Schools in this cluster are predominantly public institutions with a high proportion of engineering majors, but there are also two outliers in Stanford and Yale University. This cluster has the highest ROI of any cluster.</td>
 </tr>
 <tr class="odd">
 <td>4</td>
-<td><strong>Religiously-affiliated schools with less wealthy students</strong>: These institutions are almost all religiously-affiliated, with a background of less wealthy students compared to Cluster 3. Among these schools, the cost of attendance varies widely, but there seems to be generally a weak positive correlation between their cost and future earnings.</td>
+<td>1.18</td>
+<td><strong>Private schools, low ROI, with a focus on visual arts:</strong> Schools in this cluster have the highest average proportion of visual arts majors and are predominantly private non-profit. This is explained by the inclusion of schools such as the American Musical and Dramatic Academy and the New York Film Academy. This cluster also has the second-highest average median family income, but it also has the lowest ROI.</td>
 </tr>
 <tr class="even">
 <td>5</td>
-<td><strong>Large state schools</strong>: These institutions are predominantly flagship state universities with large student bodies. Compared to the other public institutions in Clusters 1 and 2, these universities exhibit higher earnings while remaining in roughly the same range of costs.</td>
+<td>1.85</td>
+<td><strong>Low-cost, low-federal loans, predominantly Hispanic schools:</strong> This cluster has the lowest average proportion of students who have taken out a federal loan; this is an interesting insight given that these schools are clustered at the bottom left of the scatterplot, with low cost <em>and</em> earnings. This cluster has the highest average proportion of Hispanic students, at nearly 100%, which makes sense as many of these universities are located in Puerto Rico.</td>
 </tr>
 <tr class="odd">
 <td>6</td>
-<td><strong>Smaller private schools</strong>: These institutions are almost all private and have small student bodies. There is a wide range of costs and earnings, as this cluster contains many liberal arts colleges but also trade schools as well.</td>
+<td>1.97</td>
+<td><strong>Washington schools:</strong> These schools are on average high in median family income and a somewhat equal mix of private and public, and they are mostly located in Washington State. This cluster seems to have emphasized geography as the unifying factor.</td>
 </tr>
 <tr class="even">
 <td>7</td>
-<td><strong>‘Prestigious’ schools</strong>: These institutions are mostly within the top 150 in the US News and World Report rankings. They have higher costs of attendance and are largely private, but also have higher earnings than the other clusters.</td>
-</tr>
-<tr class="odd">
-<td>8</td>
-<td><strong>Predominantly white schools with wealthier students</strong>: These institutions are similar to Cluster 1 in that they are predominantly white and public. However, the average median family income for these schools is ~50% higher. Accordingly, the average earnings for these schools is higher than those in Cluster 1.</td>
-</tr>
-<tr class="even">
-<td>9</td>
-<td>Again, as with Cluster 0, these points have a rather disparate set of factors that make interpretation harder.</td>
+<td>1.95</td>
+<td><strong>Part-time, priavte for-profit schools:</strong> The points in this cluster are rather dispersed, with a high average concentration of both students who are part-time and older than 25. Almost all of the private for-profit schools are in this cluster.</td>
 </tr>
 </tbody>
 </table>
+<p>Overall, there were several interesting observations:</p>
+<ul>
+<li>The cluster with the highest average engineering concentration also had the highest ROI; the cluster with the highest average visual arts concentration also had the lowest ROI.</li>
+<li>Some clusters are highly defined by geography, such as Cluster 6, which suggests that regional spatial factors may play a role in ROI.</li>
+<li>The analysis shows a clear divide with private for-profit institutions – they tend to serve part-time students above the age of 25, with an ROI that is towards the middle of the clusters.</li>
+</ul>
 <h2 id="earnings-trajectory">Earnings Trajectory</h2>
 <p>The analysis above dealt with return on investment at a static point in time: 10 years post-enrollment. The following section will analyze earnings trajectories, looking at how earnings change over time for college graduates.</p>
 <h2 id="earnings-trajectory-methodology">Earnings Trajectory Methodology</h2>
@@ -2737,7 +2712,8 @@ Figure: Earnings Trajectory by Prestige
 Figure: Earnings Trajectory by Field of Study
 </p>
 </div>
-<p>Fields such as Engineering, Construction Trades, Computer Sciences, and Mathematics and Statistics occupy the higher end of the earnings spectrum, while fields such as Library Science, Theology and Religious Vocations, and Visual and Performing Arts fall on the lower end. <a href="https://www.insidehighered.com/news/students/careers/2023/05/04/measuring-outcomes-income">As expected, STEM fields dominate the upper tier</a>. This trend likely reflects the strong market demand for entry-level STEM jobs, particularly in the engineering and computer science fields. However, the available earnings data only covers up to five years, which limits overall applicability. If longer-term data were available in the dataset, it would be worth examining whether earnings in certain fields eventually converge with higher-paying disciplines.</p>
+<p>Fields such as Engineering, Construction Trades, Computer Sciences, and Mathematics and Statistics occupy the higher end of the earnings spectrum, while fields such as Library Science, Theology and Religious Vocations, and Visual and Performing Arts fall on the lower end. <a href="https://www.insidehighered.com/news/students/careers/2023/05/04/measuring-outcomes-income">As expected, STEM fields dominate the upper tier</a>. This trend likely reflects the strong market demand for entry-level STEM jobs, particularly in the engineering and computer science fields. Additionally, this observation aligns with the previous analysis on ROI, as higher ROI was associated with high concentration in Engineering, while lower ROI was associated with a high concentration in the Visual Arts.</p>
+<p>However, the available earnings data only covers up to five years, which limits overall applicability. If longer-term data were available in the dataset, it would be worth examining whether earnings in certain fields eventually converge with higher-paying disciplines.</p>
 <!--- Earnings Trajectory by Field of Study --->
 <div class="figure">
 <iframe src="figures/earnings_trajectory_by_field_of_study.svg" width="100%" height="715" style="border:none;"></iframe>
@@ -2746,7 +2722,7 @@ Figure: Earnings Trajectory by Field of Study
 </p>
 </div>
 <h1 id="discussion-and-conclusion">4. Discussion and Conclusion</h1>
-<p>The visualizations reveal that ROI varies significantly by institution type, with private non-profit institutions generally higher in cost and earnings than public ones. The analysis also shows that perceived prestige plays a crucial role in inequal outcomes. The clustering analysis highlighted further distinctions across institutions, including school size, religious affiliation, and the racial makeup of the student body. This polarization suggests that there are a variety of factors that impact student outcomes. Across the different fields of study, earnings trajectories vary, but again the type of institution matters greatly, with higher ‘prestige’ institutions exhibiting greater earnings throughout the first seven years after graduation. These findings indicate that students’ financial outcomes are closely tied to key institutional characteristics, especially institution type, religious affiliation, racial makeup, and school size.</p>
+<p>The visualizations reveal that ROI varies significantly by institution type, with private non-profit institutions generally higher in cost and earnings than public ones. The analysis also shows that perceived prestige plays a crucial role in inequal outcomes. The clustering analysis highlighted further distinctions across institutions, including degree concentration, institution type, and geographical characteristics. This polarization suggests that there are a variety of factors that impact student outcomes. Across the different fields of study, earnings trajectories vary, but again the type of institution matters greatly, with higher ‘prestige’ institutions exhibiting greater earnings throughout the first seven years after graduation.</p>
 <p>While earnings trajectories may vary early on in one’s career, some professions – such as medical professionals – require additional years of schooling or experience to achieve higher earnings. Furthermore, because the study above was correlative, we cannot definitively conclude that institutional characteristics <em>cause</em> the observed differences in ROI; we can only say that the two are associated.</p>
 <p>Future analysis could explore a longer earnings horizon with the use of a different dataset. Employing a regression-based analysis could also give further insights as to which factors quantitatively had the largest impact on ROI.</p>
 <h1 id="references">5. References</h1>
@@ -2759,7 +2735,6 @@ Figure: Earnings Trajectory by Field of Study
 <li><a href="https://rstudio.github.io/distill/">Distill in RMarkdown</a></li>
 <li><a href="https://soeonline.american.edu/blog/private-vs-public-institutions/#:~:text=Due%20to%20government%20funding%2C%20public,often%20have%20higher%20tuition%20costs.">“public institutions generally have lower costs due to government funding”</a></li>
 <li><a href="https://carnegieclassifications.acenet.edu">Carnegie Classification</a></li>
-<li><a href="https://www.ihep.org/press/how-wealth-not-just-income-shapes-college-access-and-success/">“partly as a representation of existing literature that points to wealth and racial disparities”</a></li>
 <li><a href="https://www.insidehighered.com/news/students/careers/2023/05/04/measuring-outcomes-income">“As expected, STEM fields dominate the upper tier”</a></li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
