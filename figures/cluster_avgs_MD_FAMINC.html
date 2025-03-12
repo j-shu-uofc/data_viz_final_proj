@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-5c8c193182d28a3f67390a7a343f4ebc"}, "mark": {"type": "bar"}, "encoding": {"tooltip": [{"field": "cluster", "type": "quantitative"}, {"field": "MD_FAMINC", "title": "Mean Median Family Income", "type": "quantitative"}], "x": {"field": "cluster", "title": "Cluster", "type": "nominal"}, "y": {"field": "MD_FAMINC", "title": "Mean Median Family Income", "type": "quantitative"}}, "title": "Mean Median Family Income by Cluster", "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-5c8c193182d28a3f67390a7a343f4ebc": [{"cluster": 0, "MD_FAMINC": 41162.5}, {"cluster": 1, "MD_FAMINC": 35029.33152173913}, {"cluster": 2, "MD_FAMINC": 64342.805555555555}, {"cluster": 3, "MD_FAMINC": 45200.07402912621}, {"cluster": 4, "MD_FAMINC": 51919.21428571428}, {"cluster": 5, "MD_FAMINC": 8549.977777777778}, {"cluster": 6, "MD_FAMINC": 47217.26470588235}, {"cluster": 7, "MD_FAMINC": 27719.81325301205}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

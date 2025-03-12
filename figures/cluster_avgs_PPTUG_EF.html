@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-a58acf6d985214c7fd6790316a67f10d"}, "mark": {"type": "bar"}, "encoding": {"tooltip": [{"field": "cluster", "type": "quantitative"}, {"field": "PPTUG_EF", "title": "Mean Part Time Percentages", "type": "quantitative"}], "x": {"field": "cluster", "title": "Cluster", "type": "nominal"}, "y": {"field": "PPTUG_EF", "title": "Mean Part Time Percentages", "type": "quantitative"}}, "title": "Mean Part Time Percentages by Cluster", "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-a58acf6d985214c7fd6790316a67f10d": [{"cluster": 0, "PPTUG_EF": 0.100705}, {"cluster": 1, "PPTUG_EF": 0.21991304347826085}, {"cluster": 2, "PPTUG_EF": 0.09117638888888889}, {"cluster": 3, "PPTUG_EF": 0.14529587378640776}, {"cluster": 4, "PPTUG_EF": 0.07959872448979592}, {"cluster": 5, "PPTUG_EF": 0.23250222222222222}, {"cluster": 6, "PPTUG_EF": 0.09780588235294119}, {"cluster": 7, "PPTUG_EF": 0.451914859437751}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-9a157f3d61d170c52b854c7973e70448"}, "mark": {"type": "bar"}, "encoding": {"tooltip": [{"field": "cluster", "type": "quantitative"}, {"field": "PCIP31", "title": "Mean Parks, Rec, Leisure & Fitness Studies Percentage", "type": "quantitative"}], "x": {"field": "cluster", "title": "Cluster", "type": "nominal"}, "y": {"field": "PCIP31", "title": "Mean Parks, Rec, Leisure & Fitness Studies Percentage", "type": "quantitative"}}, "title": "Mean Parks, Rec, Leisure & Fitness Studies Percentage", "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-9a157f3d61d170c52b854c7973e70448": [{"cluster": 0, "PCIP31": 0.088565}, {"cluster": 1, "PCIP31": 0.03832282608695652}, {"cluster": 2, "PCIP31": 0.020962500000000002}, {"cluster": 3, "PCIP31": 0.02964757281553398}, {"cluster": 4, "PCIP31": 0.040202551020408164}, {"cluster": 5, "PCIP31": 0.0061333333333333335}, {"cluster": 6, "PCIP31": 0.014329411764705882}, {"cluster": 7, "PCIP31": 0.004699196787148594}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

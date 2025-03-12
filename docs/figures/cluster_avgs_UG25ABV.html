@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-a5ef34947df88a875756691214b89ed1"}, "mark": {"type": "bar"}, "encoding": {"tooltip": [{"field": "cluster", "type": "quantitative"}, {"field": "UG25ABV", "title": "Mean Over 25 Percentages", "type": "quantitative"}], "x": {"field": "cluster", "title": "Cluster", "type": "nominal"}, "y": {"field": "UG25ABV", "title": "Mean Over 25 Percentages", "type": "quantitative"}}, "title": "Mean Over 25 Percentages by Cluster", "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-a5ef34947df88a875756691214b89ed1": [{"cluster": 0, "UG25ABV": 0.14646}, {"cluster": 1, "UG25ABV": 0.2562445652173913}, {"cluster": 2, "UG25ABV": 0.11264166666666668}, {"cluster": 3, "UG25ABV": 0.14242135922330096}, {"cluster": 4, "UG25ABV": 0.12330867346938774}, {"cluster": 5, "UG25ABV": 0.34070222222222224}, {"cluster": 6, "UG25ABV": 0.1549705882352941}, {"cluster": 7, "UG25ABV": 0.5793694779116466}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -102,18 +102,101 @@ I chose the top 30 variables from the regression analysis for the clustering alg
 
 ### Overall Cluster Observations
 
-The following represents my interpretation of the clustering phenomena observed in the scatterplot. For the purposes of this analysis, I produced a series of visualizations that show each variable in the clustering algorithm and its distribution. These visualizations can be found in the computational notebook, as fitting all of them in this webpage proved difficult (I was unable to save to HTML, which was needed to embed visualizations.).
+The following represents my interpretation of the clustering phenomena observed in the scatterplot. For the purposes of this analysis, I produced a series of visualizations that show each variable in the clustering algorithm and its distribution. The full list of visualizations can be found in the computational notebook. 
 
-Cluster | ROI (Earnings/Cost) | Classification
-- | - | -------------
-0  | 1.58 | **North Carolina schools:** The points in this cluster seem rather dispersed, especially with Duke University and Southern Methodist University as extreme outliers. Examining the distributions, it appears that these schools have more than twice the average percentage of degrees awarded in Parks, Recreation, Leisure, And Fitness Studies than other schools, and almost all of these schools are located in North Carolina. This cluster remains hard to interpret.
-1  | 1.92 | **Colorado schools:** The schools in this cluster are also rather dispersed, and contain a mix of public and private non-profit schools. However, a defining characteristic is that this cluster has a high average percentage of Hispanic students, and a majority of these schools are in Colorado.
-2 | 1.43 | **High earnings, wealthy family background:** The schools in this cluster contain a mixture of high earnings public and private non-profit schools, with a large range in cost of attendance. Institutions in this cluster have an average median family income far higher than other clusters, and there is also the highest average concentration of social sciences majors in this cluster.
-3 | 2.43 | **Public schools with a focus on engineering and high ROI:** Schools in this cluster are predominantly public institutions with a high proportion of engineering majors, but there are also two outliers in Stanford and Yale University. This cluster has the highest ROI of any cluster.
-4 | 1.18 | **Private schools, low ROI, with a focus on visual arts:** Schools in this cluster have the highest average proportion of visual arts majors and are predominantly private non-profit. This is explained by the inclusion of schools such as the American Musical and Dramatic Academy and the New York Film Academy. This cluster also has the second-highest average median family income, but it also has the lowest ROI.
-5 | 1.85 | **Low-cost, low-federal loans, predominantly Hispanic schools:** This cluster has the lowest average proportion of students who have taken out a federal loan; this is an interesting insight given that these schools are clustered at the bottom left of the scatterplot, with low cost *and* earnings. This cluster has the highest average proportion of Hispanic students, at nearly 100%, which makes sense as many of these universities are located in Puerto Rico.
-6 | 1.97 | **Washington schools:** These schools are on average high in median family income and a somewhat equal mix of private and public, and they are mostly located in Washington State. This cluster seems to have emphasized geography as the unifying factor.
-7 | 1.95 | **Part-time, priavte for-profit schools:** The points in this cluster are rather dispersed, with a high average concentration of both students who are part-time and older than 25. Almost all of the private for-profit schools are in this cluster.
+Note that for some of the visualizations, I refer to two variables: the majority state of that cluster, and the cluster's ROI. For the sake of concision, I've included these two visualizations here at the top and link back to these visualizations. Hover over the graph to see the counts/ROI for each state.
+
+<!--- State --->
+<div id="fig:cluster_avgs_state" class="figure">
+  <iframe src="figures/cluster_avgs_state.html" width="100%" height="380" style="border:none;"></iframe>
+  <p class="caption">Figure: State Count by Cluster</p>
+</div>
+
+<!--- ROI --->
+<div id = "fig:cluster_avgs_roi" class="figure">
+  <iframe src="figures/cluster_avgs_roi.html" width="100%" height="380" style="border:none;"></iframe>
+  <p class="caption">Figure: ROI by Cluster</p>
+</div>
+
+
+### Cluster 0: North Carolina schools
+The points in this cluster seem rather dispersed, especially with Duke University and Southern Methodist University as extreme outliers. Examining the distributions, it appears that these schools have more than twice the average percentage of degrees awarded in Parks, Recreation, Leisure, And Fitness Studies than other schools, and almost all of these schools are located in North Carolina ([see Figure](#fig:cluster_avgs_state)). This cluster remains hard to interpret.
+
+<!--- Parks & Rec --->
+<div class="figure">
+  <iframe src="figures/cluster_avgs_parks.html" width="100%" height="380" style="border:none;"></iframe>
+  <p class="caption">Figure: Avg. Parks & Rec Percentages by Cluster</p>
+</div>
+
+### Cluster 1: Hispanic Texas schools
+
+The schools in this cluster are also rather dispersed, and contain a mix of public and private non-profit schools. However, a defining characteristic is that this cluster has a high average percentage of Hispanic students, and a majority of these schools are in Texas ([see Figure](#fig:cluster_avgs_state)).
+
+<!--- Hispanic --->
+<div id="fig:cluster_avgs_hisp" class="figure">
+  <iframe src="figures/cluster_avgs_hisp.html" width="100%" height="380" style="border:none;"></iframe>
+  <p class="caption">Figure: Avg. Hispanic Percentages by Cluster</p>
+</div>
+
+### Cluster 2: High earnings, wealthy family background schools
+
+The schools in this cluster contain a mixture of high earnings, public and private non-profit schools, with a large range in cost of attendance. Institutions in this cluster have an average median family income far higher than other clusters, and there is also the highest average concentration of social sciences majors in this cluster.
+
+<!--- Median Family Income --->
+<div id="fig:cluster_avgs_MD_FAMINC" class="figure">
+  <iframe src="figures/cluster_avgs_MD_FAMINC.html" width="100%" height="380" style="border:none;"></iframe>
+  <p class="caption">Figure: Avg. Median Family Income by Cluster</p>
+</div>
+
+### Cluster 3: Public schools with a focus on engineering and high ROI
+
+Schools in this cluster are predominantly public institutions with a high proportion of engineering majors, but there are also two outliers in Stanford and Yale University. This cluster has the highest ROI of any cluster ([see Figure](#fig:cluster_avgs_roi)).
+
+<!--- Engineering --->
+<div class="figure">
+  <iframe src="figures/cluster_avgs_engineering.html" width="100%" height="380" style="border:none;"></iframe>
+  <p class="caption">Figure:  Avg. Engineering Percentages by Cluster</p>
+</div>
+
+### Cluster 4: Private schools, low ROI, with a focus on visual and performing arts
+
+This cluster has the highest average proportion of visual and performing arts majors and are predominantly private non-profit. This is explained by the inclusion of schools such as the American Musical and Dramatic Academy and the New York Film Academy. This cluster also has the second-highest average median family income ([see Figure](#fig:cluster_avgs_MD_FAMINC)), but it also has the lowest ROI ([see Figure](#fig:cluster_avgs_roi)).
+
+<!--- Visual and Performing Arts --->
+<div class="figure">
+  <iframe src="figures/cluster_avgs_viz_arts.html" width="100%" height="380" style="border:none;"></iframe>
+  <p class="caption">Figure:  Avg. Visual and Performing Arts Percentages by Cluster</p>
+</div>
+
+### Cluster 5: Low-cost, low-federal loans, predominantly Hispanic schools
+
+This cluster has the lowest average proportion of students who have taken out a federal loan; this is an interesting insight given that these schools are clustered at the bottom left of the scatterplot, with low cost *and* earnings. This cluster has the highest average proportion of Hispanic students, at nearly 100%, ([see Figure](#fig:cluster_avgs_hisp)) which makes sense as many of these universities are located in Puerto Rico ([see Figure](#fig:cluster_avgs_state)).
+
+<!--- Percentage Federal Loan --->
+<div class="figure">
+  <iframe src="figures/cluster_avgs_PCTFLOAN.html" width="100%" height="380" style="border:none;"></iframe>
+  <p class="caption">Figure: Avg. Federal Loan Percentages by Cluster</p>
+</div>
+
+### Cluster 6: Washington State schools
+
+These schools are on average high in median family income and a somewhat equal mix of private and public, and they are mostly located in Washington State. This cluster seems to have emphasized geography as the unifying factor.
+
+### Cluster 7: Part-time, priavte for-profit schools
+
+The points in this cluster are rather dispersed, with a high average concentration of both students who are part-time and older than 25. Almost all of the private for-profit schools are in this cluster.
+
+<!--- Part Time --->
+<div class="figure">
+  <iframe src="figures/cluster_avgs_PPTUG_EF.html" width="100%" height="380" style="border:none;"></iframe>
+  <p class="caption">Figure: Avg. Part Time Percentages by Cluster</p>
+</div>
+
+<!--- Over 25 --->
+<div class="figure">
+  <iframe src="figures/cluster_avgs_UG25ABV.html" width="100%" height="380" style="border:none;"></iframe>
+  <p class="caption">Figure: Avg. Older Than 25 Percentages by Cluster</p>
+</div>
 
 Overall, there were several interesting observations:
 

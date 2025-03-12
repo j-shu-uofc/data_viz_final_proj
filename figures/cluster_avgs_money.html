@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-bd95abca032e96f5385f4ca2ecd667dc"}, "mark": {"type": "bar"}, "encoding": {"color": {"field": "Measure", "legend": {"labelExpr": "\n                      datum.label === 'avg_cost' ? 'Average Cost' :\n                      datum.label === 'avg_earnings' ? 'Average Earnings 10 Years Post-Enrollment' :\n                      datum.label === 'avg_fam_inc' ? 'Median Family Income' :\n                      datum.label\n                    ", "labelLimit": 400, "title": "Measure"}, "type": "nominal"}, "tooltip": [{"field": "cluster", "type": "quantitative"}, {"field": "Measure", "type": "nominal"}, {"field": "Value", "type": "quantitative"}], "x": {"field": "cluster", "title": "Cluster", "type": "nominal"}, "xOffset": {"field": "Measure", "title": "Measure", "type": "nominal"}, "y": {"field": "Value", "title": "Average Value", "type": "quantitative"}}, "title": "Averages for Clusters", "width": 700, "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-bd95abca032e96f5385f4ca2ecd667dc": [{"cluster": 0, "Measure": "avg_cost", "Value": 37482.825}, {"cluster": 1, "Measure": "avg_cost", "Value": 30769.641304347828}, {"cluster": 2, "Measure": "avg_cost", "Value": 48784.680555555555}, {"cluster": 3, "Measure": "avg_cost", "Value": 23709.281553398057}, {"cluster": 4, "Measure": "avg_cost", "Value": 50912.98469387755}, {"cluster": 5, "Measure": "avg_cost", "Value": 14813.866666666667}, {"cluster": 6, "Measure": "avg_cost", "Value": 37513.76470588235}, {"cluster": 7, "Measure": "avg_cost", "Value": 28061.309236947793}, {"cluster": 0, "Measure": "avg_earnings", "Value": 49483.45}, {"cluster": 1, "Measure": "avg_earnings", "Value": 50521.19565217391}, {"cluster": 2, "Measure": "avg_earnings", "Value": 63707.38888888889}, {"cluster": 3, "Measure": "avg_earnings", "Value": 55564.046116504855}, {"cluster": 4, "Measure": "avg_earnings", "Value": 58849.691326530614}, {"cluster": 5, "Measure": "avg_earnings", "Value": 26858.755555555555}, {"cluster": 6, "Measure": "avg_earnings", "Value": 63542.294117647056}, {"cluster": 7, "Measure": "avg_earnings", "Value": 48778.4016064257}, {"cluster": 0, "Measure": "avg_fam_inc", "Value": 41162.5}, {"cluster": 1, "Measure": "avg_fam_inc", "Value": 35029.33152173913}, {"cluster": 2, "Measure": "avg_fam_inc", "Value": 64342.805555555555}, {"cluster": 3, "Measure": "avg_fam_inc", "Value": 45200.07402912621}, {"cluster": 4, "Measure": "avg_fam_inc", "Value": 51919.21428571428}, {"cluster": 5, "Measure": "avg_fam_inc", "Value": 8549.977777777778}, {"cluster": 6, "Measure": "avg_fam_inc", "Value": 47217.26470588235}, {"cluster": 7, "Measure": "avg_fam_inc", "Value": 27719.81325301205}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -2294,13 +2294,27 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   /* Figure caption spacing */
   d-figure figcaption {
-      margin-top: 0.5rem;
+      margin-top: 2px !important; 
+      margin-bottom: 2px !important;
       text-align: center;
+      padding-top: 2px !important;
+      padding-bottom: 2px !important;
+  }
+
+  d-figure figcaption p {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
   }
 
   /* Control spacing around figure panels */
   d-figure .figure-panel {
-      margin-bottom: 0.5rem;
+      margin-top: 2px;
+      margin-bottom: 2px;
+  }
+
+  /* Add specific control for the gap between figure and caption */
+  d-figure img, d-figure svg {
+      margin-bottom: 2px !important;
   }
 
   /* Configure spacing for list items */

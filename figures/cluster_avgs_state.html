@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-fbe1495fe85d4047f0953cb9779b3859"}, "mark": {"type": "bar"}, "encoding": {"color": {"field": "STABBR", "title": "State", "type": "nominal"}, "tooltip": [{"field": "cluster", "type": "quantitative"}, {"field": "STABBR", "type": "nominal"}, {"field": "count", "type": "quantitative"}], "x": {"field": "cluster", "title": "Cluster", "type": "nominal"}, "y": {"field": "count", "title": "Count", "type": "quantitative"}}, "title": "Count of State by Cluster", "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-fbe1495fe85d4047f0953cb9779b3859": [{"cluster": 0, "STABBR": "NC", "count": 40}, {"cluster": 1, "STABBR": "NM", "count": 8}, {"cluster": 1, "STABBR": "TX", "count": 82}, {"cluster": 1, "STABBR": "WY", "count": 2}, {"cluster": 2, "STABBR": "DC", "count": 5}, {"cluster": 2, "STABBR": "NH", "count": 8}, {"cluster": 2, "STABBR": "PA", "count": 53}, {"cluster": 2, "STABBR": "RI", "count": 6}, {"cluster": 3, "STABBR": "AL", "count": 13}, {"cluster": 3, "STABBR": "AR", "count": 10}, {"cluster": 3, "STABBR": "AZ", "count": 3}, {"cluster": 3, "STABBR": "CA", "count": 33}, {"cluster": 3, "STABBR": "CO", "count": 11}, {"cluster": 3, "STABBR": "CT", "count": 10}, {"cluster": 3, "STABBR": "DE", "count": 2}, {"cluster": 3, "STABBR": "FL", "count": 11}, {"cluster": 3, "STABBR": "GA", "count": 23}, {"cluster": 3, "STABBR": "HI", "count": 2}, {"cluster": 3, "STABBR": "IA", "count": 3}, {"cluster": 3, "STABBR": "ID", "count": 4}, {"cluster": 3, "STABBR": "IL", "count": 9}, {"cluster": 3, "STABBR": "IN", "count": 13}, {"cluster": 3, "STABBR": "KS", "count": 7}, {"cluster": 3, "STABBR": "KY", "count": 8}, {"cluster": 3, "STABBR": "LA", "count": 12}, {"cluster": 3, "STABBR": "MA", "count": 10}, {"cluster": 3, "STABBR": "MD", "count": 8}, {"cluster": 3, "STABBR": "ME", "count": 2}, {"cluster": 3, "STABBR": "MI", "count": 13}, {"cluster": 3, "STABBR": "MN", "count": 10}, {"cluster": 3, "STABBR": "MO", "count": 13}, {"cluster": 3, "STABBR": "MS", "count": 8}, {"cluster": 3, "STABBR": "MT", "count": 4}, {"cluster": 3, "STABBR": "ND", "count": 3}, {"cluster": 3, "STABBR": "NE", "count": 6}, {"cluster": 3, "STABBR": "NJ", "count": 12}, {"cluster": 3, "STABBR": "NV", "count": 2}, {"cluster": 3, "STABBR": "NY", "count": 34}, {"cluster": 3, "STABBR": "OH", "count": 20}, {"cluster": 3, "STABBR": "OK", "count": 14}, {"cluster": 3, "STABBR": "OR", "count": 8}, {"cluster": 3, "STABBR": "SC", "count": 11}, {"cluster": 3, "STABBR": "SD", "count": 4}, {"cluster": 3, "STABBR": "TN", "count": 10}, {"cluster": 3, "STABBR": "UT", "count": 8}, {"cluster": 3, "STABBR": "VA", "count": 12}, {"cluster": 3, "STABBR": "VT", "count": 3}, {"cluster": 3, "STABBR": "WI", "count": 12}, {"cluster": 3, "STABBR": "WV", "count": 10}, {"cluster": 3, "STABBR": "WY", "count": 1}, {"cluster": 4, "STABBR": "AL", "count": 5}, {"cluster": 4, "STABBR": "AR", "count": 5}, {"cluster": 4, "STABBR": "AZ", "count": 3}, {"cluster": 4, "STABBR": "CA", "count": 34}, {"cluster": 4, "STABBR": "CO", "count": 2}, {"cluster": 4, "STABBR": "CT", "count": 10}, {"cluster": 4, "STABBR": "DC", "count": 1}, {"cluster": 4, "STABBR": "FL", "count": 19}, {"cluster": 4, "STABBR": "GA", "count": 12}, {"cluster": 4, "STABBR": "IA", "count": 11}, {"cluster": 4, "STABBR": "ID", "count": 1}, {"cluster": 4, "STABBR": "IL", "count": 33}, {"cluster": 4, "STABBR": "IN", "count": 14}, {"cluster": 4, "STABBR": "KS", "count": 8}, {"cluster": 4, "STABBR": "KY", "count": 12}, {"cluster": 4, "STABBR": "LA", "count": 4}, {"cluster": 4, "STABBR": "MA", "count": 29}, {"cluster": 4, "STABBR": "MD", "count": 4}, {"cluster": 4, "STABBR": "MI", "count": 11}, {"cluster": 4, "STABBR": "MN", "count": 11}, {"cluster": 4, "STABBR": "MO", "count": 15}, {"cluster": 4, "STABBR": "MS", "count": 3}, {"cluster": 4, "STABBR": "NE", "count": 5}, {"cluster": 4, "STABBR": "NJ", "count": 12}, {"cluster": 4, "STABBR": "NY", "count": 53}, {"cluster": 4, "STABBR": "OH", "count": 13}, {"cluster": 4, "STABBR": "OK", "count": 6}, {"cluster": 4, "STABBR": "OR", "count": 7}, {"cluster": 4, "STABBR": "SC", "count": 9}, {"cluster": 4, "STABBR": "SD", "count": 1}, {"cluster": 4, "STABBR": "TN", "count": 15}, {"cluster": 4, "STABBR": "TX", "count": 1}, {"cluster": 4, "STABBR": "UT", "count": 1}, {"cluster": 4, "STABBR": "VA", "count": 11}, {"cluster": 4, "STABBR": "VT", "count": 3}, {"cluster": 4, "STABBR": "WI", "count": 8}, {"cluster": 5, "STABBR": "IL", "count": 1}, {"cluster": 5, "STABBR": "NY", "count": 1}, {"cluster": 5, "STABBR": "PR", "count": 43}, {"cluster": 6, "STABBR": "WA", "count": 17}, {"cluster": 7, "STABBR": "AK", "count": 4}, {"cluster": 7, "STABBR": "AL", "count": 4}, {"cluster": 7, "STABBR": "AR", "count": 1}, {"cluster": 7, "STABBR": "AZ", "count": 9}, {"cluster": 7, "STABBR": "CA", "count": 18}, {"cluster": 7, "STABBR": "CO", "count": 7}, {"cluster": 7, "STABBR": "CT", "count": 2}, {"cluster": 7, "STABBR": "DC", "count": 3}, {"cluster": 7, "STABBR": "DE", "count": 1}, {"cluster": 7, "STABBR": "FL", "count": 23}, {"cluster": 7, "STABBR": "GA", "count": 14}, {"cluster": 7, "STABBR": "GU", "count": 1}, {"cluster": 7, "STABBR": "HI", "count": 4}, {"cluster": 7, "STABBR": "IA", "count": 2}, {"cluster": 7, "STABBR": "ID", "count": 2}, {"cluster": 7, "STABBR": "IL", "count": 6}, {"cluster": 7, "STABBR": "IN", "count": 5}, {"cluster": 7, "STABBR": "KS", "count": 3}, {"cluster": 7, "STABBR": "LA", "count": 7}, {"cluster": 7, "STABBR": "MA", "count": 4}, {"cluster": 7, "STABBR": "MD", "count": 5}, {"cluster": 7, "STABBR": "ME", "count": 1}, {"cluster": 7, "STABBR": "MI", "count": 5}, {"cluster": 7, "STABBR": "MN", "count": 4}, {"cluster": 7, "STABBR": "MO", "count": 6}, {"cluster": 7, "STABBR": "MS", "count": 1}, {"cluster": 7, "STABBR": "MT", "count": 3}, {"cluster": 7, "STABBR": "NC", "count": 3}, {"cluster": 7, "STABBR": "ND", "count": 1}, {"cluster": 7, "STABBR": "NE", "count": 2}, {"cluster": 7, "STABBR": "NH", "count": 2}, {"cluster": 7, "STABBR": "NJ", "count": 6}, {"cluster": 7, "STABBR": "NV", "count": 5}, {"cluster": 7, "STABBR": "NY", "count": 10}, {"cluster": 7, "STABBR": "OH", "count": 26}, {"cluster": 7, "STABBR": "OK", "count": 1}, {"cluster": 7, "STABBR": "PA", "count": 3}, {"cluster": 7, "STABBR": "RI", "count": 1}, {"cluster": 7, "STABBR": "SC", "count": 3}, {"cluster": 7, "STABBR": "SD", "count": 2}, {"cluster": 7, "STABBR": "TN", "count": 4}, {"cluster": 7, "STABBR": "TX", "count": 7}, {"cluster": 7, "STABBR": "UT", "count": 7}, {"cluster": 7, "STABBR": "VA", "count": 9}, {"cluster": 7, "STABBR": "VI", "count": 1}, {"cluster": 7, "STABBR": "VT", "count": 1}, {"cluster": 7, "STABBR": "WI", "count": 5}, {"cluster": 7, "STABBR": "WV", "count": 5}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
